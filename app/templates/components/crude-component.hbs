@@ -1,1 +1,30 @@
-{{yield}}
+{{#if (eq step 1)}}
+
+  <div class="container-fluid">
+
+  {{!-- {{first view all metadatas, from that load one or create a new one}} --}}
+   <h1> View Records </h1>
+    <ul class="list-group">
+      {{#each listmetadata as |meta|}}
+       <li class="list-group-item"><a {{ action 'loadMeta' meta.name }}>{{meta.name}}</a></li>
+      {{/each}}
+    </ul>
+
+  <button class='btn btn-info pull-right' {{action 'createMeta'}}>Create</button>
+  </div>
+
+{{else}}
+  {{#if (eq step 2)}}
+
+    {{!-- {{configure metadata over here}} --}}
+    {{create-metadata}}
+
+  {{else}}
+    {{#if (eq step 3)}}
+
+      {{!-- {{Now create, query and perform all operations on records here}} --}}
+      {{filter-object}}
+
+    {{/if}}
+  {{/if}}
+{{/if}}
