@@ -1,52 +1,54 @@
-<div class="container-fluid">
-<form {{action 'filterByInput' on='submit'}}>
-<div class="row">
-
-<div class="col-md-6 col-lg-6">
-<ul class="list-group">
-  <li class="list-group-item"></li>
-</ul>
-</div>
-
-<div class="col-md-3 col-lg-3">
-
-</div>
-
-<div class="col-md-3 col-lg-3">
-<button type="submit" class='btn btn-success'><span class="glyphicon glyphicon-search"></span></button>
-<button class="btn btn-info"  {{ action 'displayall' }}><span class="glyphicon glyphicon-th-list"></span></button>
-</div>
-
-</div>
-</form>
-</div>
 
 <br>
 <div class="container-fluid">
-  <div class="panel panel-default">
+  <div class="panel panel-info">
     <div class="panel panel-heading">
-
-      {{!-- {{Page Number}} --}}
-      <ul class="pagination">
-        {{#if showPrevious}}
-          <li><a {{action "previousClicked"}}> prev </a></li>
-         {{/if}}
-        {{#each pageNumbers as |pageNumber|}}
-           {{#if (eq pageNumber 1)}}
-           <li id="d{{pageNumber}}" class="active"><a {{action "pageClicked" pageNumber}}>{{pageNumber}}</a></li>
-           {{else}}
-             <li id="d{{pageNumber}}"><a {{action "pageClicked" pageNumber}}>{{pageNumber}}</a></li>
-            {{/if}} 
-        {{/each}}
-        {{#if showNext}}
-          <li><a class="btn btn-default" {{action "nextClicked"}}> next </a></li>
-        {{/if}}
-      </ul>
-
+      <h3>{{metaname}}</h3>
     </div>
     <div class="panel panel-body">
-       {{display-object meta=metadata Items=paginatedItems}}
+
+      <table class="table table-condensed">
+        <thead>
+
+         {{!-- {{Header column}} --}}
+          <tr>
+         {{#each metadata as |metadata|}}
+           <th>{{metadata.name}}</th>
+         {{/each}}
+         </tr>
+
+        </thead>
+       <tbody>
+
+        {{!-- {{Result books displayed below}} --}}
+        {{#each dat as |mitem|}}
+           <tr>
+           {{#each-in mitem as |mm m1|}}
+            {{#if (not-eq mm 'id')}}
+           <td>{{m1}}</td>
+            {{/if}}
+           {{/each-in}}
+            <td><button class='btn btn-danger' {{ action 'delrow' mitem.id }}><span class="glyphicon glyphicon-remove"></span></button></td>
+           </tr>
+        {{/each}}
+
+        <tr id="addrow" >
+         {{#each metadata as |metadata|}}
+           <td><input id='adr{{metadata.name}}' type='text' class='form-control' {{action 'loadVal' metadata.name on='keyUp'}}></td>
+         {{/each}}
+          <td><button class='btn btn-success' {{action 'addrow'}}><span class="glyphicon glyphicon-plus"></span></button></td>
+        </tr>
+
+       </tbody>
+    </table>
+
+    </div>
+    <div class="panel panel-footer">
+      <div class="container-fluid">
+              <button class='btn btn-primary pull-right' {{action 'SaveNow'}}><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+      </div>
     </div>
   </div>
 </div>
+<br>
 

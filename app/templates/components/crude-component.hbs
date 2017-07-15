@@ -6,7 +6,7 @@
    <h1> View Records </h1>
     <ul class="list-group">
       {{#each listmetadata as |meta|}}
-       <li class="list-group-item"><a {{ action 'loadMeta' meta.name }}>{{meta.name}}</a></li>
+       <li class="list-group-item"><div class="container-fluid"><a {{ action 'loadMeta' meta.name }}>{{meta.name}}</a><button class='btn btn-danger pull-right' {{ action 'delmeta' meta.name }}><span class="glyphicon glyphicon-remove"></span></button></div></li>
       {{/each}}
     </ul>
 
@@ -17,14 +17,15 @@
   {{#if (eq step 2)}}
 
     {{!-- {{configure metadata over here}} --}}
-    {{create-metadata}}
+    {{create-metadata metaname=metaname}}
+    <button class='btn btn-info' {{ action 'SaveMeta' }}> Done </button>
 
   {{else}}
     {{#if (eq step 3)}}
 
       {{!-- {{Now create, query and perform all operations on records here}} --}}
-      {{filter-object}}
-
+      {{filter-object metadata=metadata dat=data metaname=metaname}}
+      <button class='btn btn-default pull-right' {{action 'QuitNow'}}><span class="glyphicon glyphicon-remove"></span>Save and Quit</button>
     {{/if}}
   {{/if}}
 {{/if}}

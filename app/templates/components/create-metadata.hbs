@@ -1,1 +1,33 @@
-{{yield}}
+
+<div class="container-fluid">
+<h1>Records Name:{{input value=metaname class='form-control'}}</h1>
+<ul class="list-group">
+{{#each nmetadata as |col|}}
+{{#if (not-eq col 'none')}}
+  <li class="list-group-item">
+    <div class="container">
+      <div class="row">
+         <div class="col-md-5 co-lg-5">
+         	{{input value=col.name class='form-control'}}
+         </div>
+         <div class="col-md-5 co-lg-5">
+         <select class='form-control' id="d1{{col.name}}">
+           <option value="text">Text</option>
+           <option value="int">Number</option>
+         </select>
+         </div>
+         <div class="col-md-2 co-lg-2">
+          <button class='btn btn-danger' {{ action 'delcol' col.id }}> <span class="glyphicon glyphicon-minus"></span> </button>
+         </div>
+      </div>
+    </div>
+  </li>
+{{/if}}
+{{/each}}
+
+
+</ul>
+<button class='btn btn-danger' {{ action 'save'}}> save </button>
+<button class='btn btn-danger pull-right' {{ action 'newcol'}}> Add </button>
+</div>
+

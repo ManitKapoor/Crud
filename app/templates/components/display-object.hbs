@@ -1,25 +1,2 @@
  {{!-- {{Search Result}} --}}
-      <table class="table table-condensed">
-        <thead>
 
-         {{!-- {{Header column}} --}}
-         {{#each meta as |metadata|}}
-         <tr>
-           <th>{{metadata}}</th>
-         </tr>
-         {{/each}}
-
-        </thead>
-       <tbody>
-
-        {{!-- {{Result books displayed below}} --}}
-        {{#each Items as |mitem|}}
-        <tr>
-           {{#each mitem as |data|}}
-           <td>{{data}}</td>
-           {{/each}}
-        </tr>
-        {{/each}}
-
-       </tbody>
-    </table>
